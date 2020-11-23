@@ -7,7 +7,7 @@ import {TodoList} from './components/todo-list/todo-list.component'
 class App extends React.Component {
 
   state = {
-    tasks : ['task1','task2','task 3', 'task4']
+    tasks : ['task1','task2','task3', 'task4']
   }
 
   render() {
