@@ -1,28 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export class SubmitForm extends React.Component {
+export function SubmitForm(props) {
+    const [content, setContent] = useState('');
 
-    state ={content:''};
-
-    handleSubmit =(e)=>{
+    function handleSubmit(e) {
         e.preventDefault();
-        this.props.onCreate(this.state.content);
+        props.onCreate(content);
     }
+    
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    className="input"
+                    placeholder="Enter item"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+                <button className="button">Add</button>
+            </form>
+        </div>
+    )
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        className="input"
-                        placeholder="Enter item"
-                        value={this.state.content}
-                        onChange={(e) => this.setState({content: e.target.value})}
-                    />
-                    <button className="button">Add</button>
-                </form>
-            </div>
-        )
-    };
 }
