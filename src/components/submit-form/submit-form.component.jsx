@@ -1,28 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export class SubmitForm extends React.Component {
+export function SubmitForm(props) {
 
-    state ={content:''};
+    const [task, setTask] = useState({ title: "", content: "" });
 
-    handleSubmit =(e)=>{
-        e.preventDefault();
-        this.props.onCreate(this.state.content);
+    function handleInputChange(e) {
+
+        const {name,value} = e.target;
+        setTask(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     }
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        className="input"
-                        placeholder="Enter item"
-                        value={this.state.content}
-                        onChange={(e) => this.setState({content: e.target.value})}
-                    />
-                    <button className="button">Add</button>
-                </form>
-            </div>
-        )
-    };
+    function handleSubmit(e) {
+        e.preventDefault();
+        props.onCreate(task);
+        setTask({ title: "", content: "" });
+    }
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <input
+                    name="title"
+                    type="text"
+                    className="input"
+                    placeholder="Title"
+                    value={task.title}
+                    onChange={handleInputChange}
+                />
+                <input
+                    name="content"
+                    type="text"
+                    className="input"
+                    placeholder="Content"
+                    value={task.content}
+                    onChange={handleInputChange}
+                />
+                <button className="button">Add</button>
+            </form>
+        </div>
+    )
+
 }
